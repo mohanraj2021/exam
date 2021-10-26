@@ -1,0 +1,51 @@
+<?php
+
+use App\Models\Admin;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
+|
+*/
+
+Route::get('/', function () {
+    return view('welcome');
+});
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
+
+require __DIR__.'/auth.php';
+
+
+
+//Admin
+
+
+Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function(){
+
+    Route::namespace('Auth')->group(function(){
+        //login route
+        Route::get('login','AuthenticatedSessionController@create')->name('login');
+    });
+});
+
+Route::group(['middleware'=>'auth'],function(){
+    Route::group(['prefix'=>'admin',
+                    'middleware'=>'is_admin',
+                    'as'=>'admin'],function(){
+
+                    });
+
+    Route::group(['prefix'=>'user',
+                'as'=>'user'],function(){
+                    
+    });
+});
