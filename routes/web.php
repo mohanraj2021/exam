@@ -2,7 +2,8 @@
 
 use App\Models\Admin;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\Admin\Auth\AuthenticatedSessionController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
